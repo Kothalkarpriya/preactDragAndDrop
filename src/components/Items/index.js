@@ -17,41 +17,41 @@ const Items = () => {
   const dragStart = (e, position) => {
     dragItem.current = position;
   };
-console.log(list[4])
-  const dragEnter = (e,position) => {
-     dragOverItem.current = position;
-  }
+  const dragEnter = (e, position) => {
+    dragOverItem.current = position;
+  };
 
   const drop = () => {
-     const copyListItems = [...list];
-     // const dragItemContent = copyListItems[dragItem.current];
-     // copyListItems.splice(dragItem.current, 1);
-     setUpdateList(dragItem.current)
-     console.log(dragItem.current)
-     // copyListItems.splice(dragOverItem.current,0,dragItemContent);
-     dragItem.current = null;
-     dragOverItem.current = null;
-     setList(copyListItems)
-    
-  }
+    const copyListItems = [...list];
+    setUpdateList(dragItem.current);
+    console.log(dragItem.current);
+    dragItem.current = null;
+    dragOverItem.current = null;
+    setList(copyListItems);
+  };
 
   return (
     <div class={style.boxes}>
       <div class={style.firstBlock}>
         {list &&
-          list.map((item,index) => (
-            <div key={item} class={style.box} onDragStart={(e)=>dragStart(e,index)} onDragEnter={(e)=>dragEnter(e,index)} onDragEnd={drop} draggable="true">
+          list.map((item, index) => (
+            <div
+              key={item}
+              class={style.box}
+              onDragStart={(e) => dragStart(e, index)}
+              onDragEnter={(e) => dragEnter(e, index)}
+              onDragEnd={drop}
+              draggable="true"
+            >
               {item}
             </div>
           ))}
       </div>
       <div class={style.secondBlock}>
-            <div onMouseUp={drop} onDragOver={drop} draggable >
-             
-               {list[updateListItem]}
-               
-               </div>
-          </div>
+        { updateListItem!==null && <div onMouseUp={drop} class={style.dropBox} onDragOver={drop} draggable>
+          {list[updateListItem]}
+        </div>}
+      </div>
     </div>
   );
 };
